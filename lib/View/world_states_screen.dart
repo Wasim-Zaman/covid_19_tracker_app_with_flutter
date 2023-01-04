@@ -1,12 +1,21 @@
 import 'dart:async';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 import '../widgets/title_and_value_item.dart';
+import '../services/blocs/states/states_states.dart';
+import '../services/blocs/states/states_bloc.dart';
+import '../services/blocs/states/states_events.dart';
+
+import './countries_list_screen.dart';
 
 class WorldStatesScreen extends StatefulWidget {
   const WorldStatesScreen({Key? key}) : super(key: key);
+
+  static const routeName = '/world-states-screen';
 
   @override
   State<WorldStatesScreen> createState() => _WorldStatesScreenState();
@@ -26,7 +35,6 @@ class _WorldStatesScreenState extends State<WorldStatesScreen>
   )..repeat();
   @override
   void initState() {
-    // TODO: implement initState
     Timer(
       const Duration(seconds: 3),
       // () => Navigator.push(
@@ -49,117 +57,177 @@ class _WorldStatesScreenState extends State<WorldStatesScreen>
   @override
   Widget build(BuildContext context) {
     print('scaffold');
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Flexible(
-                flex: 2,
-                child: PieChart(
-                  dataMap: const {
-                    "Total": 500000,
-                    "Recovered": 200000,
-                    "Deaths": 100000,
-                  },
-                  animationDuration: const Duration(seconds: 3),
-                  chartLegendSpacing: 32,
-                  chartRadius: MediaQuery.of(context).size.width / 2.7,
-                  // chartType: ChartType.ring,
-                  colorList: colorList,
-                  chartValuesOptions: const ChartValuesOptions(
-                    showChartValueBackground: true,
-                    showChartValues: true,
-                    showChartValuesInPercentage: true,
-                    showChartValuesOutside: false,
-                  ),
-                  legendOptions: const LegendOptions(
-                    showLegendsInRow: false,
-                    legendPosition: LegendPosition.left,
-                    showLegends: true,
-                    legendShape: BoxShape.circle,
-                    legendTextStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
+
+    return RefreshIndicator(
+      onRefresh: () async {
+        BlocProvider.of<StatesBloc>(context).add(LoadingEvent());
+      },
+      color: const Color.fromRGBO(255, 46, 126, 1),
+      child: Scaffold(
+        body: BlocBuilder<StatesBloc, StatesStates>(
+          builder: (context, state) {
+            if (state is LoadingState) {
+              return Center(
+                child: SpinKitFadingCircle(
+                  controller: _animController,
+                  color: const Color.fromRGBO(255, 46, 126, 1),
+                ),
+              );
+            } else if (state is ExceptionState) {
+              return Center(
+                child: Text(
+                  state.message,
+                  style: const TextStyle(
+                    color: Colors.red,
+                    fontSize: 20,
                   ),
                 ),
-              ),
-              Flexible(
-                flex: 4,
+              );
+            } else if (state is LoadedState) {
+              return SafeArea(
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 16.0,
-                    right: 16.0,
-                    top: 16.0,
-                    bottom: 8.0,
-                  ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: const [
-                        TitleAndValueItem(
-                          title: 'title',
-                          value: 'value',
-                        ),
-                        TitleAndValueItem(
-                          title: 'title',
-                          value: 'value',
-                        ),
-                        TitleAndValueItem(
-                          title: 'title',
-                          value: 'value',
-                        ),
-                        TitleAndValueItem(
-                          title: 'title',
-                          value: 'value',
-                        ),
-                        TitleAndValueItem(
-                          title: 'title',
-                          value: 'value',
-                        ),
-                        TitleAndValueItem(
-                          title: 'title',
-                          value: 'value',
-                        ),
-                        TitleAndValueItem(
-                          title: 'title',
-                          value: 'value',
-                        ),
-                        TitleAndValueItem(
-                          title: 'title',
-                          value: 'value',
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Flexible(
-                flex: 2,
-                child: Center(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: const Color.fromRGBO(255, 46, 126, 1)),
-                    child: const Center(
-                      child: Text(
-                        'Track Countries',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.w500,
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    // crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Flexible(
+                        flex: 2,
+                        child: PieChart(
+                          dataMap: {
+                            "Cases": double.parse(
+                                state.stateModel.cases!.toString()),
+                            "Recovered": double.parse(
+                                state.stateModel.recovered!.toString()),
+                            "Deaths": double.parse(
+                                state.stateModel.deaths!.toString()),
+                          },
+                          animationDuration: const Duration(seconds: 3),
+                          chartLegendSpacing: 32,
+                          chartRadius: MediaQuery.of(context).size.width / 2.7,
+                          // chartType: ChartType.ring,
+                          colorList: colorList,
+                          chartValuesOptions: const ChartValuesOptions(
+                            showChartValueBackground: true,
+                            showChartValues: true,
+                            showChartValuesInPercentage: true,
+                            showChartValuesOutside: false,
+                          ),
+                          legendOptions: const LegendOptions(
+                            showLegendsInRow: false,
+                            legendPosition: LegendPosition.left,
+                            showLegends: true,
+                            legendShape: BoxShape.circle,
+                            legendTextStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                      Flexible(
+                        flex: 4,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            left: 10.0,
+                            right: 10.0,
+                            top: 5.0,
+                            bottom: 15.0,
+                          ),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                TitleAndValueItem(
+                                  title: 'Total Cases',
+                                  value: state.stateModel.cases.toString(),
+                                ),
+                                TitleAndValueItem(
+                                  title: "Today Cases",
+                                  value: state.stateModel.todayCases.toString(),
+                                ),
+                                TitleAndValueItem(
+                                  title: "Total Deaths",
+                                  value: state.stateModel.deaths.toString(),
+                                ),
+                                TitleAndValueItem(
+                                  title: "Today Deaths",
+                                  value:
+                                      state.stateModel.todayDeaths.toString(),
+                                ),
+                                TitleAndValueItem(
+                                  title: "Total Recovered",
+                                  value: state.stateModel.recovered.toString(),
+                                ),
+                                TitleAndValueItem(
+                                  title: "Active Cases",
+                                  value: state.stateModel.active.toString(),
+                                ),
+                                TitleAndValueItem(
+                                  title: "Critical Cases",
+                                  value: state.stateModel.critical.toString(),
+                                ),
+                                TitleAndValueItem(
+                                  title: "Cases Per One Million",
+                                  value: state.stateModel.casesPerOneMillion
+                                      .toString(),
+                                ),
+                                TitleAndValueItem(
+                                  title: "Deaths Per One Million",
+                                  value: state.stateModel.deathsPerOneMillion
+                                      .toString(),
+                                ),
+                                TitleAndValueItem(
+                                  title: "Total Tests",
+                                  value: state.stateModel.tests.toString(),
+                                ),
+                                TitleAndValueItem(
+                                  title: "Tests Per One Million",
+                                  value: state.stateModel.testsPerOneMillion
+                                      .toString(),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        flex: 2,
+                        child: Center(
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * 0.07,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: const Color.fromRGBO(255, 46, 126, 1),
+                            ),
+                            child: Center(
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, CountriesListScreen.routeName);
+                                },
+                                child: const Text(
+                                  'Track Countries',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            ],
-          ),
+              );
+            }
+            return const Center(
+              child: Text('Something went wrong'),
+            );
+          },
         ),
       ),
     );

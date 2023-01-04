@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TitleAndValueItem extends StatelessWidget {
-  final title;
-  final value;
+  final String title;
+  final String value;
 
   const TitleAndValueItem({
     required this.title,
@@ -12,29 +12,23 @@ class TitleAndValueItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              value,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
+    return Card(
+      child: ListTile(
+        title: Text(
+          title,
+          style: const TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        const Divider(),
-      ],
+        trailing: Text(
+          value,
+          style: const TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
     );
   }
 }

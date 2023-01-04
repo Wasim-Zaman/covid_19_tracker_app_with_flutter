@@ -40,6 +40,7 @@ dependencies:
   pie_chart: 
   flutter_spinkit: 
   shimmer: 
+  flutter_bloc: ^8.1.1
 
 dev_dependencies:
   flutter_test:

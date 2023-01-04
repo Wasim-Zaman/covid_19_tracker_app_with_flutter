@@ -7,6 +7,8 @@ import 'world_states_screen.dart';
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
+  static const routeName = '/splash-screen';
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -53,13 +55,26 @@ class _SplashScreenState extends State<SplashScreen>
                   child: child,
                 );
               },
-              child: Center(
-                child: Image.asset(
-                  'images/virus.png',
-                  height: 200,
-                  width: 200,
-                  fit: BoxFit.cover,
-                ),
+              child: Column(
+                children: [
+                  Center(
+                    child: Image.asset(
+                      'images/virus.png',
+                      height: 200,
+                      width: 200,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'COVID-19\nTracker-App',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

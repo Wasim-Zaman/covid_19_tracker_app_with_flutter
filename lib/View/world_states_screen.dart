@@ -77,8 +77,6 @@ class _WorldStatesScreenState extends State<WorldStatesScreen>
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    // crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Flexible(
                         flex: 2,

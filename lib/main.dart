@@ -8,6 +8,7 @@ import 'services/blocs/states/states_events.dart';
 import './View/countries_list_screen.dart';
 import './View/world_states_screen.dart';
 import './View/splash_screen.dart';
+import './View/country_details_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,21 +23,22 @@ class MyApp extends StatelessWidget {
     return BlocProvider<StatesBloc>(
       create: (context) => StatesBloc(StatesRepository())..add(LoadingEvent()),
       child: MaterialApp(
-        title: 'Flutter Demo',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          brightness: Brightness.dark,
-          primarySwatch: Colors.deepPurple,
-          accentColor: const Color.fromRGBO(255, 46, 126, 1),
-        ),
-        home: const SplashScreen(),
-        routes: {
-          SplashScreen.routeName: (context) => const SplashScreen(),
-          WorldStatesScreen.routeName: (context) => const WorldStatesScreen(),
-          CountriesListScreen.routeName: (context) =>
-              const CountriesListScreen(),
-        },
-      ),
+          title: 'Flutter Demo',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            brightness: Brightness.dark,
+            primarySwatch: Colors.deepPurple,
+            accentColor: const Color.fromRGBO(255, 46, 126, 1),
+          ),
+          home: const SplashScreen(),
+          routes: {
+            SplashScreen.routeName: (context) => const SplashScreen(),
+            WorldStatesScreen.routeName: (context) => const WorldStatesScreen(),
+            CountriesListScreen.routeName: (context) =>
+                const CountriesListScreen(),
+            CountryDetailsScreen.routeName: (context) =>
+                const CountryDetailsScreen(),
+          }),
     );
   }
 }

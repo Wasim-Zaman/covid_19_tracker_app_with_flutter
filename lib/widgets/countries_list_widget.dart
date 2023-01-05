@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/countries_model.dart';
+import '../View/country_details_screen.dart';
 
 class CountriesListWidget extends StatelessWidget {
   final CountriesModel countriesModel;
@@ -19,6 +20,18 @@ class CountriesListWidget extends StatelessWidget {
         ),
         title: Text(countriesModel.country!),
         subtitle: Text('Total Cases: ${countriesModel.cases}'),
+        trailing: Text(
+          'Deaths: ${countriesModel.deaths}',
+          style: const TextStyle(
+            color: Colors.red,
+          ),
+        ),
+        onTap: () {
+          Navigator.of(context).pushNamed(
+            CountryDetailsScreen.routeName,
+            arguments: countriesModel,
+          );
+        },
       ),
     );
   }

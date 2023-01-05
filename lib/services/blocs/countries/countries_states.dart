@@ -15,8 +15,10 @@ class CountriesExceptionState extends CountriesStates {
 }
 
 class CountriesLoadingState extends CountriesStates {
-  final String LoadingMessage;
-  CountriesLoadingState({this.LoadingMessage = 'Loading...'});
+  final List<CountriesModel> countriesModel;
+  CountriesLoadingState(this.countriesModel);
 }
 
 class ErrorState extends CountriesStates {}
+
+class InitialState extends CountriesStates {}

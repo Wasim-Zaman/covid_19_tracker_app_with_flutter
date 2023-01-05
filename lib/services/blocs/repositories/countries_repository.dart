@@ -26,6 +26,7 @@ class CountriesRepository {
         throw Exception("Invalid response from API");
       }
     } catch (error) {
+      print('error: $error');
       rethrow;
     }
   }

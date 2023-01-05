@@ -20,6 +20,12 @@ class CountriesListScreen extends StatefulWidget {
 
 class _CountriesListScreenState extends State<CountriesListScreen> {
   final _searchController = TextEditingController();
+  @override
+  void dispose() {
+    _searchController.dispose();
+    // _searchController.clear();
+    super.dispose();
+  }
 
   Widget get getListTile => ListTile(
         leading: const CircleAvatar(

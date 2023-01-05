@@ -1,13 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../repositories/countries_repository.dart';
-
 import './countries_events.dart';
 import './countries_states.dart';
+import '../../../models/countries_model.dart';
 
-class CountriesBloc extends Bloc<CountriesEvents, CountriesStates> {
+class CountriesBLoc extends Bloc<CountriesEvents, CountriesStates> {
   final CountriesRepository countriesRepository;
-  CountriesBloc(this.countriesRepository) : super(CountriesLoadingState()) {
+  CountriesBLoc(this.countriesRepository) : super(CountriesLoadingState()) {
     on<ExceptionEvent>((event, emit) {
       emit(CountriesExceptionState(event.message));
     });
@@ -15,9 +15,9 @@ class CountriesBloc extends Bloc<CountriesEvents, CountriesStates> {
       emit(CountriesLoadingState());
       try {
         print('Data is loading...');
-        final countriesModel = await countriesRepository.fetchCountriesData();
+        final countriesList = await countriesRepository.fetchCountriesList();
         print('Data is loaded...');
-        emit(CountriesLoadedState(countriesModel));
+        emit(CountriesLoadedState(countriesList));
       } catch (error) {
         add(ExceptionEvent(error.toString()));
       }

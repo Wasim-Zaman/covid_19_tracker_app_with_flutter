@@ -1,27 +1,27 @@
 class CountriesModel {
-  int? updated;
+  num? updated;
   String? country;
   CountryInfo? countryInfo;
-  int? cases;
-  int? todayCases;
-  int? deaths;
-  int? todayDeaths;
-  int? recovered;
-  int? todayRecovered;
-  int? active;
-  int? critical;
-  int? casesPerOneMillion;
-  int? deathsPerOneMillion;
-  int? tests;
-  int? testsPerOneMillion;
-  int? population;
+  num? cases;
+  num? todayCases;
+  num? deaths;
+  num? todayDeaths;
+  num? recovered;
+  num? todayRecovered;
+  num? active;
+  num? critical;
+  num? casesPerOneMillion;
+  num? deathsPerOneMillion;
+  num? tests;
+  num? testsPerOneMillion;
+  num? population;
   String? continent;
-  int? oneCasePerPeople;
-  int? oneDeathPerPeople;
-  int? oneTestPerPeople;
-  double? activePerOneMillion;
-  double? recoveredPerOneMillion;
-  double? criticalPerOneMillion;
+  num? oneCasePerPeople;
+  num? oneDeathPerPeople;
+  num? oneTestPerPeople;
+  num? activePerOneMillion;
+  num? recoveredPerOneMillion;
+  num? criticalPerOneMillion;
 
   CountriesModel(
       {this.updated,
@@ -77,7 +77,7 @@ class CountriesModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['updated'] = updated;
     data['country'] = country;
     if (countryInfo != null) {
@@ -108,11 +108,11 @@ class CountriesModel {
 }
 
 class CountryInfo {
-  int? iId;
+  num? iId;
   String? iso2;
   String? iso3;
-  int? lat;
-  int? long;
+  num? lat;
+  num? long;
   String? flag;
 
   CountryInfo({this.iId, this.iso2, this.iso3, this.lat, this.long, this.flag});
@@ -127,7 +127,7 @@ class CountryInfo {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['_id'] = iId;
     data['iso2'] = iso2;
     data['iso3'] = iso3;

@@ -28,38 +28,58 @@ class _CountriesListScreenState extends State<CountriesListScreen> {
       ),
       body: BlocProvider(
         create: (context) =>
-            CountriesBloc(CountriesRepository())..add(LoadingEvent()),
+            CountriesBLoc(CountriesRepository())..add(LoadingEvent()),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            BlocBuilder<CountriesBloc, CountriesStates>(
+            BlocBuilder<CountriesBLoc, CountriesStates>(
               builder: (context, state) {
                 if (state is CountriesLoadingState) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else if (state is CountriesLoadedState) {
-                  return Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                            hintText: 'Search',
-                            prefixIcon: Icon(Icons.search),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
+                  return Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            decoration: const InputDecoration(
+                              hintText: 'Search',
+                              prefixIcon: Icon(Icons.search),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
                               ),
                             ),
+                            controller: _searchController,
                           ),
-                          controller: _searchController,
-                        ),
+                          // const SizedBox(height: 20),
+                          Expanded(
+                            child: ListView.builder(
+                              itemBuilder: (context, index) {
+                                final countriesModel =
+                                    state.countriesModel[index];
+                                return CountriesListWidget(countriesModel);
+                              },
+                              itemCount: state.countriesModel.length,
+                            ),
+                          )
+                        ],
                       ),
-                    ],
+                    ),
                   );
                 } else if (state is CountriesExceptionState) {
                   return Center(
-                    child: Text(state.message),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Text(
+                        state.message,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   );
                 } else {
                   return const Center(

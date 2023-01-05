@@ -13,7 +13,7 @@ class StatesRepository {
       print('***** status code is fine ${response.statusCode} *****');
       // create a jsonData variable
       final jsonData = jsonDecode(response.body.toString());
-
+      print('jsonData: $jsonData');
       // append each single map into the list
       return StatesModel.fromJson(jsonData);
     } else {

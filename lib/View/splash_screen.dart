@@ -23,10 +23,7 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     Timer(const Duration(seconds: 3), () {
       print('Navigating to WorldStatesScreen...');
-      Navigator.pushNamed(
-        context,
-        WorldStatesScreen.routeName,
-      );
+      Navigator.of(context).pushReplacementNamed(WorldStatesScreen.routeName);
     });
     super.initState();
   }
@@ -48,8 +45,8 @@ class _SplashScreenState extends State<SplashScreen>
             AnimatedBuilder(
               animation: _animController,
               builder: (context, child) {
-                return Transform.rotate(
-                  angle: _animController.value * 6.3,
+                return Transform.scale(
+                  scale: 1 + _animController.value,
                   child: child,
                 );
               },
@@ -58,8 +55,8 @@ class _SplashScreenState extends State<SplashScreen>
                   Center(
                     child: Image.asset(
                       'images/virus.png',
-                      height: 250,
-                      width: 250,
+                      height: 150,
+                      width: 150,
                       fit: BoxFit.cover,
                     ),
                   ),

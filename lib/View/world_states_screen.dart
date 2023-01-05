@@ -53,9 +53,21 @@ class _WorldStatesScreenState extends State<WorldStatesScreen>
             if (state is LoadingState) {
               return Center(
                 child: SpinKitFadingCircle(
-                  controller: _animController,
-                  color: const Color.fromRGBO(255, 46, 126, 1),
+                  size: 100,
+                  itemBuilder: (BuildContext context, int index) {
+                    return DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: index.isEven
+                            ? const Color.fromRGBO(255, 46, 126, 1)
+                            : Colors.green,
+                      ),
+                    );
+                  },
                 ),
+                // child: SpinKitFadingCircle(
+                //   controller: _animController,
+                //   color: const Color.fromRGBO(255, 46, 126, 1),
+                // ),
               );
             } else if (state is ExceptionState) {
               return Center(

@@ -18,3 +18,5 @@ class CountriesLoadingState extends CountriesStates {
   final String LoadingMessage;
   CountriesLoadingState({this.LoadingMessage = 'Loading...'});
 }
+
+class ErrorState extends CountriesStates {}

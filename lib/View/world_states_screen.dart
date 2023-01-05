@@ -33,20 +33,6 @@ class _WorldStatesScreenState extends State<WorldStatesScreen>
     duration: const Duration(seconds: 4),
     vsync: this,
   )..repeat();
-  @override
-  void initState() {
-    Timer(
-      const Duration(seconds: 3),
-      // () => Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => WorldStatusScreen(),
-      //   ),
-      // ),
-      () {},
-    );
-    super.initState();
-  }
 
   @override
   void dispose() {
@@ -56,8 +42,6 @@ class _WorldStatesScreenState extends State<WorldStatesScreen>
 
   @override
   Widget build(BuildContext context) {
-    print('scaffold');
-
     return RefreshIndicator(
       onRefresh: () async {
         BlocProvider.of<StatesBloc>(context).add(LoadingEvent());
@@ -75,15 +59,20 @@ class _WorldStatesScreenState extends State<WorldStatesScreen>
               );
             } else if (state is ExceptionState) {
               return Center(
-                child: Text(
-                  state.message,
-                  style: const TextStyle(
-                    color: Colors.red,
-                    fontSize: 20,
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Text(
+                    state.message,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Colors.red,
+                      fontSize: 20,
+                    ),
                   ),
                 ),
               );
             } else if (state is LoadedState) {
+              print('loaded state');
               return SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),

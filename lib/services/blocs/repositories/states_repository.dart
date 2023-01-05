@@ -1,26 +1,24 @@
 import 'dart:convert';
 
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 
 import '../../utilities/app_urls.dart';
 import '../../../models/states_model.dart';
 
 class StatesRepository {
-  Future<StatesModel> fetchWorldStatesRecord() async {
-    try {
-      // print('inside try block');
-      final Response response = await get(Uri.parse(AppUrls.worldStatesApi));
-      if (response.statusCode == 200) {
-        // print('***** status code is fine ${response.statusCode} *****');
-        // print('***** response body is: ${response.body} *****');
-        return StatesModel.fromJson(jsonDecode(response.body));
-      } else {
-        // print('***** status code is not fine ${response.statusCode}*****');
-        throw Exception('Failed to load world states record!');
-      }
-    } catch (error) {
-      // print('***** error is: $error *****');
-      rethrow;
+  Future<StatesModel> fetchStatesData() async {
+    final response = await http.get(Uri.parse(AppUrls.worldStatesApi));
+    // check the response of the api is valid or not
+    if (response.statusCode == 200) {
+      print('***** status code is fine ${response.statusCode} *****');
+      // create a jsonData variable
+      final jsonData = jsonDecode(response.body.toString());
+
+      // append each single map into the list
+      return StatesModel.fromJson(jsonData);
+    } else {
+      print('***** status code is not fine ${response.statusCode}*****');
+      throw Exception("Invalid response from API");
     }
   }
 }

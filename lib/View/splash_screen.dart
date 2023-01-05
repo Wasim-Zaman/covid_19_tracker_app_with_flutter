@@ -21,15 +21,13 @@ class _SplashScreenState extends State<SplashScreen>
   )..repeat();
   @override
   void initState() {
-    Timer(
-      const Duration(seconds: 3),
-      () => Navigator.push(
+    Timer(const Duration(seconds: 3), () {
+      print('Navigating to WorldStatesScreen...');
+      Navigator.pushNamed(
         context,
-        MaterialPageRoute(
-          builder: (context) => const WorldStatesScreen(),
-        ),
-      ),
-    );
+        WorldStatesScreen.routeName,
+      );
+    });
     super.initState();
   }
 
@@ -50,8 +48,8 @@ class _SplashScreenState extends State<SplashScreen>
             AnimatedBuilder(
               animation: _animController,
               builder: (context, child) {
-                return Transform.scale(
-                  scale: _animController.value,
+                return Transform.rotate(
+                  angle: _animController.value * 6.3,
                   child: child,
                 );
               },
@@ -60,21 +58,21 @@ class _SplashScreenState extends State<SplashScreen>
                   Center(
                     child: Image.asset(
                       'images/virus.png',
-                      height: 200,
-                      width: 200,
+                      height: 250,
+                      width: 250,
                       fit: BoxFit.cover,
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    'COVID-19\nTracker-App',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  const SizedBox(height: 50),
                 ],
+              ),
+            ),
+            const Text(
+              'COVID-19\nTracker-App',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ],

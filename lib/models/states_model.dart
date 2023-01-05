@@ -9,7 +9,7 @@ class StatesModel {
   int? active;
   int? critical;
   int? casesPerOneMillion;
-  double? deathsPerOneMillion;
+  int? deathsPerOneMillion;
   int? tests;
   double? testsPerOneMillion;
   int? population;
@@ -21,29 +21,28 @@ class StatesModel {
   double? criticalPerOneMillion;
   int? affectedCountries;
 
-  StatesModel({
-    this.updated,
-    this.cases,
-    this.todayCases,
-    this.deaths,
-    this.todayDeaths,
-    this.recovered,
-    this.todayRecovered,
-    this.active,
-    this.critical,
-    this.casesPerOneMillion,
-    this.deathsPerOneMillion,
-    this.tests,
-    this.testsPerOneMillion,
-    this.population,
-    this.oneCasePerPeople,
-    this.oneDeathPerPeople,
-    this.oneTestPerPeople,
-    this.activePerOneMillion,
-    this.recoveredPerOneMillion,
-    this.criticalPerOneMillion,
-    this.affectedCountries,
-  });
+  StatesModel(
+      {this.updated,
+      this.cases,
+      this.todayCases,
+      this.deaths,
+      this.todayDeaths,
+      this.recovered,
+      this.todayRecovered,
+      this.active,
+      this.critical,
+      this.casesPerOneMillion,
+      this.deathsPerOneMillion,
+      this.tests,
+      this.testsPerOneMillion,
+      this.population,
+      this.oneCasePerPeople,
+      this.oneDeathPerPeople,
+      this.oneTestPerPeople,
+      this.activePerOneMillion,
+      this.recoveredPerOneMillion,
+      this.criticalPerOneMillion,
+      this.affectedCountries});
 
   StatesModel.fromJson(Map<String, dynamic> json) {
     updated = json['updated'];
@@ -70,28 +69,28 @@ class StatesModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['updated'] = updated;
-    data['cases'] = cases;
-    data['todayCases'] = todayCases;
-    data['deaths'] = deaths;
-    data['todayDeaths'] = todayDeaths;
-    data['recovered'] = recovered;
-    data['todayRecovered'] = todayRecovered;
-    data['active'] = active;
-    data['critical'] = critical;
-    data['casesPerOneMillion'] = casesPerOneMillion;
-    data['deathsPerOneMillion'] = deathsPerOneMillion;
-    data['tests'] = tests;
-    data['testsPerOneMillion'] = testsPerOneMillion;
-    data['population'] = population;
-    data['oneCasePerPeople'] = oneCasePerPeople;
-    data['oneDeathPerPeople'] = oneDeathPerPeople;
-    data['oneTestPerPeople'] = oneTestPerPeople;
-    data['activePerOneMillion'] = activePerOneMillion;
-    data['recoveredPerOneMillion'] = recoveredPerOneMillion;
-    data['criticalPerOneMillion'] = criticalPerOneMillion;
-    data['affectedCountries'] = affectedCountries;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['updated'] = this.updated;
+    data['cases'] = this.cases;
+    data['todayCases'] = this.todayCases;
+    data['deaths'] = this.deaths;
+    data['todayDeaths'] = this.todayDeaths;
+    data['recovered'] = this.recovered;
+    data['todayRecovered'] = this.todayRecovered;
+    data['active'] = this.active;
+    data['critical'] = this.critical;
+    data['casesPerOneMillion'] = this.casesPerOneMillion;
+    data['deathsPerOneMillion'] = this.deathsPerOneMillion;
+    data['tests'] = this.tests;
+    data['testsPerOneMillion'] = this.testsPerOneMillion;
+    data['population'] = this.population;
+    data['oneCasePerPeople'] = this.oneCasePerPeople;
+    data['oneDeathPerPeople'] = this.oneDeathPerPeople;
+    data['oneTestPerPeople'] = this.oneTestPerPeople;
+    data['activePerOneMillion'] = this.activePerOneMillion;
+    data['recoveredPerOneMillion'] = this.recoveredPerOneMillion;
+    data['criticalPerOneMillion'] = this.criticalPerOneMillion;
+    data['affectedCountries'] = this.affectedCountries;
     return data;
   }
 }

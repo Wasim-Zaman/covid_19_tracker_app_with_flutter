@@ -52,7 +52,7 @@ class CountriesModel {
     updated = json['updated'];
     country = json['country'];
     countryInfo = json['countryInfo'] != null
-        ? new CountryInfo.fromJson(json['countryInfo'])
+        ? CountryInfo.fromJson(json['countryInfo'])
         : null;
     cases = json['cases'];
     todayCases = json['todayCases'];

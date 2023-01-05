@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../repositories/states_repository.dart';
 import 'states_events.dart';
 import 'states_states.dart';
+import '../../../models/states_model.dart';
 
 class StatesBloc extends Bloc<StatesEvents, StatesStates> {
   final StatesRepository statesRepository;
@@ -14,16 +15,12 @@ class StatesBloc extends Bloc<StatesEvents, StatesStates> {
       emit(LoadingState());
       try {
         print('Data is loading...');
-        final stateModel = await statesRepository.fetchWorldStatesRecord();
+        final statesModel = await statesRepository.fetchStatesData();
         print('Data is loaded...');
-        emit(LoadedState(stateModel));
+        emit(LoadedState(statesModel));
       } catch (error) {
         add(ExceptionEvent(error.toString()));
       }
     });
-    // on<LoadedEvent>((event, emit) {
-    //   final stateModel = statesRepository.fetchWorldStatesRecord();
-    //   emit(LoadedState(stateModel as StatesModel));
-    // });
   }
 }

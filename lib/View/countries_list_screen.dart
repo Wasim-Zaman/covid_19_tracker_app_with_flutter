@@ -88,22 +88,34 @@ class _CountriesListScreenState extends State<CountriesListScreen> {
                         padding: const EdgeInsets.all(10.0),
                         child: Column(
                           children: [
-                            TextFormField(
-                              decoration: const InputDecoration(
-                                hintText: 'Search',
-                                prefixIcon: Icon(Icons.search),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
+                            Form(
+                              child: TextFormField(
+                                decoration: const InputDecoration(
+                                  hintText: 'Search by country name',
+                                  prefixIcon: Icon(Icons.search),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10),
+                                    ),
                                   ),
                                 ),
+                                controller: _searchController,
+                                onChanged: (value) {
+                                  BlocProvider.of<CountriesBLoc>(context)
+                                      .add(SearchEvent(value));
+                                },
                               ),
-                              controller: _searchController,
                             ),
                             // const SizedBox(height: 20),
                             Expanded(
                               child: ListView.builder(
                                 itemBuilder: (context, index) {
+                                  if (state.countriesModel.isEmpty) {
+                                    return const Center(
+                                      child: Text('No data found'),
+                                    );
+                                  }
+
                                   final countriesModel =
                                       state.countriesModel[index];
                                   return CountriesListWidget(countriesModel);

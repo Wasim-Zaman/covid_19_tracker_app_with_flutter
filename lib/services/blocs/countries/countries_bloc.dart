@@ -24,5 +24,22 @@ class CountriesBLoc extends Bloc<CountriesEvents, CountriesStates> {
         add(ExceptionEvent(error.toString()));
       }
     });
+
+    on<SearchEvent>((event, emit) async {
+      try {
+        final countriesList = await countriesRepository.fetchCountriesList();
+
+        if (event.query.isEmpty) {
+          emit(CountriesLoadedState(countriesList));
+          return;
+        }
+
+        final filteredCountriesList = countriesList.firstWhere((element) =>
+            element.country!.toLowerCase().contains(event.query.toLowerCase()));
+        emit(CountriesLoadedState([filteredCountriesList]));
+      } catch (error) {
+        add(ExceptionEvent(error.toString()));
+      }
+    });
   }
 }

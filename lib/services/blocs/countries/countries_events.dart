@@ -8,3 +8,8 @@ class ExceptionEvent extends CountriesEvents {
 class LoadingEvent extends CountriesEvents {}
 
 class LoadedEvent extends CountriesEvents {}
+
+class SearchEvent extends CountriesEvents {
+  final String query;
+  SearchEvent(this.query);
+}

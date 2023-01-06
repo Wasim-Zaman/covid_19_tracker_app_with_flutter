@@ -70,15 +70,34 @@ class _WorldStatesScreenState extends State<WorldStatesScreen>
                 // ),
               );
             } else if (state is ExceptionState) {
-              return Center(
+              return SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: Text(
-                    state.message,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Colors.red,
-                      fontSize: 20,
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          state.message,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Colors.red,
+                            fontSize: 20,
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () {
+                            BlocProvider.of<StatesBloc>(context)
+                                .add(LoadingEvent());
+                          },
+                          child: const Text('Try Again'),
+                          style: ElevatedButton.styleFrom(
+                            primary: const Color.fromRGBO(255, 46, 126, 1),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -229,12 +248,28 @@ class _WorldStatesScreenState extends State<WorldStatesScreen>
                 ),
               );
             }
-            return const Center(
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  'Something went wrong',
-                  textAlign: TextAlign.center,
+            return SafeArea(
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Something went wrong',
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () {
+                          BlocProvider.of<StatesBloc>(context)
+                              .add(LoadingEvent());
+                        },
+                        child: const Text('Try Again'),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );

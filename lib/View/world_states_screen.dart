@@ -230,7 +230,13 @@ class _WorldStatesScreenState extends State<WorldStatesScreen>
               );
             }
             return const Center(
-              child: Text('Something went wrong'),
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  'Something went wrong',
+                  textAlign: TextAlign.center,
+                ),
+              ),
             );
           },
         ),

@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../services/blocs/countries/countries_states.dart';
 import '../services/blocs/repositories/countries_repository.dart';
-import '../services/blocs/countries/countries_bloc.dart';
+import '../services/blocs/countries/countries_states.dart';
 import '../services/blocs/countries/countries_events.dart';
+import '../services/blocs/countries/countries_bloc.dart';
 
 import '../widgets/countries_list_widget.dart';
 

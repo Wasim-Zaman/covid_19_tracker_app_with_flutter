@@ -32,11 +32,21 @@ class CountriesBLoc extends Bloc<CountriesEvents, CountriesStates> {
         if (event.query.isEmpty) {
           emit(CountriesLoadedState(countriesList));
           return;
+        } else if (countriesList.any((element) => element.country!
+            .toLowerCase()
+            .contains(event.query.toLowerCase()))) {
+          final filteredCountriesList = countriesList.firstWhere((element) =>
+              element.country!
+                  .toLowerCase()
+                  .contains(event.query.toLowerCase()));
+          emit(CountriesLoadedState([filteredCountriesList]));
+        } else {
+          emit(CountriesLoadedState([]));
         }
 
-        final filteredCountriesList = countriesList.firstWhere((element) =>
-            element.country!.toLowerCase().contains(event.query.toLowerCase()));
-        emit(CountriesLoadedState([filteredCountriesList]));
+        // final filteredCountriesList = countriesList.firstWhere((element) =>
+        //     element.country!.toLowerCase().contains(event.query.toLowerCase()));
+        // emit(CountriesLoadedState([filteredCountriesList]));
       } catch (error) {
         add(ExceptionEvent(error.toString()));
       }

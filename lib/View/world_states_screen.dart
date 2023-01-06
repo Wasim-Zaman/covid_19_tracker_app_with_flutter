@@ -189,11 +189,17 @@ class _WorldStatesScreenState extends State<WorldStatesScreen>
                         ),
                       ),
                       Flexible(
-                        flex: 2,
+                        flex: 1,
                         child: Center(
                           child: Container(
                             height: MediaQuery.of(context).size.height * 0.07,
                             width: double.infinity,
+                            margin: const EdgeInsets.only(
+                              left: 10.0,
+                              right: 10.0,
+                              top: 5.0,
+                              bottom: 15.0,
+                            ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: const Color.fromRGBO(255, 46, 126, 1),
@@ -208,7 +214,7 @@ class _WorldStatesScreenState extends State<WorldStatesScreen>
                                   'Track Countries',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 25,
+                                    fontSize: 20,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black,
                                   ),
